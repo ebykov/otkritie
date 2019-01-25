@@ -971,7 +971,7 @@ var Special = function (_BaseSpecial) {
         }
       });
 
-      EL.nextBtn = (0, _dom.makeElement)('button', [CSS.main + '__btn', CSS.main + '__btn--next'], {
+      EL.nextBtn = (0, _dom.makeElement)('button', CSS.main + '__btn', {
         textContent: 'Далее',
         data: {
           click: 'continue'
@@ -988,7 +988,8 @@ var Special = function (_BaseSpecial) {
       EL.cards = (0, _dom.makeElement)('div', CSS.main + '__cards');
       EL.nextCards = (0, _dom.makeElement)('div', CSS.main + '__next-cards');
 
-      EL.cardWrapper = (0, _dom.makeElement)('div', CSS.main + '__card');
+      EL.cardWrapper = (0, _dom.makeElement)('div', CSS.main + '__card-wrapper');
+      EL.cardInner = (0, _dom.makeElement)('div', CSS.main + '__card-inner');
 
       EL.card = (0, _dom.makeElement)('div', CSS.main + '-card');
       EL.cPages = (0, _dom.makeElement)('div', CSS.main + '-card__pages');
@@ -996,9 +997,13 @@ var Special = function (_BaseSpecial) {
       EL.cBottom = (0, _dom.makeElement)('div', CSS.main + '-card__bottom');
       EL.cTextFrom = (0, _dom.makeElement)('div', CSS.main + '-card__text-from');
       EL.cTextTo = (0, _dom.makeElement)('div', CSS.main + '-card__text-to');
+      EL.cImgFrom = (0, _dom.makeElement)('img', CSS.main + '-card__img-from');
+      EL.cImgTo = (0, _dom.makeElement)('img', CSS.main + '-card__img-to');
 
       EL.cHead.appendChild(EL.cTextFrom);
+      EL.cHead.appendChild(EL.cImgFrom);
       EL.cBottom.appendChild(EL.cTextTo);
+      EL.cBottom.appendChild(EL.cImgTo);
 
       EL.card.appendChild(EL.cPages);
       EL.card.appendChild(EL.cHead);
@@ -1010,25 +1015,34 @@ var Special = function (_BaseSpecial) {
       EL.bcAnswer = (0, _dom.makeElement)('div', CSS.main + '-card__answer');
       EL.bcAnswerTitle = (0, _dom.makeElement)('div', CSS.main + '-card__answer-title');
       EL.bcAnswerText = (0, _dom.makeElement)('div', CSS.main + '-card__answer-text');
+      EL.bcAnswerImg = (0, _dom.makeElement)('img', CSS.main + '-card__answer-img');
 
       EL.bcAnswer.appendChild(EL.bcAnswerTitle);
       EL.bcAnswer.appendChild(EL.bcAnswerText);
 
+      EL.bcHead.appendChild(EL.bcAnswerImg);
       EL.bcBottom.appendChild(EL.bcAnswer);
 
       EL.backCard.appendChild(EL.bcHead);
       EL.backCard.appendChild(EL.bcBottom);
 
-      EL.cardWrapper.appendChild(EL.card);
-      EL.cardWrapper.appendChild(EL.backCard);
+      EL.cardInner.appendChild(EL.card);
+      EL.cardInner.appendChild(EL.backCard);
+
+      EL.cardWrapper.appendChild(EL.cardInner);
 
       EL.cards.appendChild(EL.nextCards);
       EL.cards.appendChild(EL.cardWrapper);
 
+      if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
+        EL.card.style.webkitBackfaceVisibility = 'hidden';
+        EL.backCard.style.webkitBackfaceVisibility = 'hidden';
+      }
+
       EL.q.appendChild(EL.cards);
       EL.q.appendChild(EL.controls);
 
-      (0, _swipe2.default)(EL.card, function (t) {
+      (0, _swipe2.default)(EL.cardWrapper, function (t) {
         _this2.answer(t, 'Swipe');
       });
 
@@ -1132,9 +1146,14 @@ var Special = function (_BaseSpecial) {
       });
 
       el.appendChild(hint);
-      el.addEventListener('mouseout', function () {
+
+      var onOptionLeave = function onOptionLeave() {
+        el.removeEventListener('mouseout', onOptionLeave);
+        el.removeEventListener('click', onOptionLeave);
         el.removeChild(hint);
-      }, { once: true });
+      };
+      el.addEventListener('mouseout', onOptionLeave);
+      el.addEventListener('click', onOptionLeave);
     }
   }, {
     key: 'start',
@@ -1178,11 +1197,11 @@ var Special = function (_BaseSpecial) {
 
       var animationClassName = this.lastAnsweredType === 'left' ? 'fadeOutLeft' : 'fadeOutRight';
 
-      (0, _animate.animate)(EL.backCard, animationClassName).then(function () {
+      (0, _animate.animate)(EL.cardWrapper, animationClassName).then(function () {
         _this4.container.classList.remove('is-answered');
 
         EL.cards.removeChild(EL.cardWrapper);
-        EL.cardWrapper.style.transform = '';
+        EL.cardInner.style.transform = '';
 
         EL.backCard.classList.remove('is-correct');
         EL.backCard.classList.remove('is-incorrect');
@@ -1205,13 +1224,18 @@ var Special = function (_BaseSpecial) {
 
       EL.cPages.innerHTML = this.activeIndex + 1 + '/' + _data2.default.questions.length;
 
-      EL.cTextFrom.innerHTML = '\u041C\u043E\u0436\u043D\u043E \u043B\u0438 \u043D\u0430 \u043A\u044D\u0448\u0431\u0435\u043A<br>\u043E\u0442 \u043F\u043E\u043A\u0443\u043F\u043A\u0438<br><b>' + question.from + '</b>';
-      EL.cTextTo.innerHTML = '\u041A\u0443\u043F\u0438\u0442\u044C<br><b>' + question.to + '</b>';
+      EL.cTextFrom.innerHTML = '\u0425\u0432\u0430\u0442\u0438\u0442 \u043B\u0438 \u043A\u044D\u0448\u0431\u0435\u043A\u0430<br>\u043E\u0442 \u043F\u043E\u043A\u0443\u043F\u043A\u0438<br><b>' + question.from.text + '</b>';
+      EL.cTextTo.innerHTML = '\u041D\u0430 <b>' + question.to.text + '?</b>';
+
+      EL.cImgFrom.dataset.id = this.activeIndex + 1;
+      EL.cImgFrom.src = question.from.img;
+      EL.cImgTo.dataset.id = this.activeIndex + 1;
+      EL.cImgTo.src = question.to.img;
 
       this.showCount();
 
       EL.cards.appendChild(EL.cardWrapper);
-      (0, _animate.animate)(EL.card, 'cardZoomIn', '200ms');
+      (0, _animate.animate)(EL.cardWrapper, 'cardZoomIn', '200ms');
     }
   }, {
     key: 'answer',
@@ -1236,7 +1260,8 @@ var Special = function (_BaseSpecial) {
     value: function makeAnswer(question, type) {
       this.container.classList.add('is-answered');
 
-      EL.cardWrapper.style.transform = 'translate3d(0,0,0) rotateY(' + (type === 'left' ? -180 : 180) + 'deg)';
+      // EL.cardInner.style.transform = `translate3d(0,0,0) rotateY(${type === 'left' ? -180 : 180}deg)`;
+      EL.cardInner.style.transform = 'translate3d(0,0,0) rotateY(-180deg)';
 
       (0, _dom.removeChildren)(EL.controls);
       EL.controls.appendChild(EL.nextBtn);
@@ -1248,8 +1273,10 @@ var Special = function (_BaseSpecial) {
         EL.backCard.classList.add('is-incorrect');
       }
 
-      EL.bcAnswerTitle.textContent = question.answerTitle;
-      EL.bcAnswerText.innerHTML = question.answer;
+      EL.bcAnswerImg.dataset.id = this.activeIndex + 1;
+      EL.bcAnswerImg.src = question.answer.img;
+      EL.bcAnswerTitle.textContent = question.answer.title;
+      EL.bcAnswerText.innerHTML = question.answer.text;
 
       if (this.activeIndex === _data2.default.questions.length - 1) {
         EL.nextBtn.innerHTML = 'Результат';
@@ -1262,7 +1289,7 @@ var Special = function (_BaseSpecial) {
       // const { result, index } = Special.getResult(this.correctAnswers);
 
       EL.cards.removeChild(EL.cardWrapper);
-      EL.cardWrapper.style.transform = '';
+      EL.cardInner.style.transform = '';
 
       EL.backCard.classList.remove('is-correct');
       EL.backCard.classList.remove('is-incorrect');
@@ -1278,8 +1305,8 @@ var Special = function (_BaseSpecial) {
       (0, _dom.removeChildren)(EL.rShare);
       Share.make(EL.rShare, {
         url: this.params.share.url + this.correctAnswers,
-        title: this.params.share.title,
-        twitter: this.params.share.title
+        title: this.correctAnswers + ' \u0438\u0437 ' + _data2.default.questions.length + ' \u043F\u0440\u0430\u0432\u0438\u043B\u044C\u043D\u044B\u0445 \u043E\u0442\u0432\u0435\u0442\u043E\u0432',
+        twitter: this.correctAnswers + ' \u0438\u0437 ' + _data2.default.questions.length + ' \u043F\u0440\u0430\u0432\u0438\u043B\u044C\u043D\u044B\u0445 \u043E\u0442\u0432\u0435\u0442\u043E\u0432'
       });
 
       this.destroyCardEvents();
@@ -1513,64 +1540,184 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = {
   title: '',
   questions: [{
-    from: 'аквариумной акулы',
-    to: 'плюшевую акулу',
-    answerTitle: 'Запросто',
-    answer: 'Длинная живая акула для аквариума может <a href="https://www.aqua-shop.ru/live/morskie_ryby/hryashchevyue_ugreobraznyue_ievrigalinnyue/prod_H0e10_M" target="_blank">обойтись</a> в несколько сотен тысяч рублей — кэшбека хватит и на плюшевую версию.',
+    from: {
+      text: 'аквариумной акулы',
+      img: 'https://leonardo.osnova.io/431f9654-4f40-ce93-ed2e-bdd5973130a7/',
+      img2x: ''
+    },
+    to: {
+      text: 'плюшевую акулу',
+      img: 'https://leonardo.osnova.io/4b5068b4-a3a0-7d6e-e4c7-a11eca497a27/',
+      img2x: ''
+    },
+    answer: {
+      title: 'Конечно',
+      text: 'Длинная живая акула для аквариума может <a href="https://www.aqua-shop.ru/live/morskie_ryby/hryashchevyue_ugreobraznyue_ievrigalinnyue/prod_H0e10_M" target="_blank">обойтись</a> в несколько сотен тысяч рублей — кэшбека хватит и на плюшевую версию.',
+      img: 'https://leonardo.osnova.io/137b1cef-d07d-9886-89cf-e38a35fb6325/',
+      img2x: ''
+    },
     correct: 'left'
   }, {
-    from: 'космического скафандра',
-    to: 'обломок челябинского метеорита',
-    answerTitle: 'Да, конечно',
-    answer: 'Цена костюма для выхода в открытый космос <a href="https://www.kommersant.ru/doc/3598831" target="_blank">достигает</a> $12 млн долларов, а кусочек метеорита можно <a href="https://www.chel.kp.ru/daily/26793/3828119/" target="_blank">приобрести</a> даже за 500 рублей. Опасайтесь подделок.',
+    from: {
+      text: 'космического<br>скафандра',
+      img: 'https://leonardo.osnova.io/0eab816e-1b00-73d5-6dfb-78fb9a24f048/',
+      img2x: ''
+    },
+    to: {
+      text: 'обломок челябинского метеорита',
+      img: 'https://leonardo.osnova.io/73ce374f-56f4-5f42-a061-902b7773e9cc/',
+      img2x: ''
+    },
+    answer: {
+      title: 'Абсолютно',
+      text: 'Цена костюма для выхода в открытый космос <a href="https://www.kommersant.ru/doc/3598831" target="_blank">достигает</a> $12 млн долларов, а кусочек метеорита можно <a href="https://www.chel.kp.ru/daily/26793/3828119/" target="_blank">приобрести</a> даже за 500 рублей. Опасайтесь подделок.',
+      img: 'https://leonardo.osnova.io/119a4f6d-ab9e-5c82-31da-d6db92594b02/',
+      img2x: ''
+    },
     correct: 'left'
   }, {
-    from: 'шины для болида «Формулы 1»',
-    to: 'ящик шампанского',
-    answerTitle: 'Нельзя',
-    answer: 'Шина не такая дорогая — около 25 тысяч рублей, но на год может не хватить и семиста штук.',
+    from: {
+      text: 'шины для<br>болида «Формулы 1»',
+      img: 'https://leonardo.osnova.io/477a381c-b706-4d2c-25c8-ca81519634d7/',
+      img2x: ''
+    },
+    to: {
+      text: 'ящик<br>шампанского',
+      img: 'https://leonardo.osnova.io/70e52ece-0cef-568a-b1d4-3f0ffe70f7a9/',
+      img2x: ''
+    },
+    answer: {
+      title: 'Не хватит',
+      text: 'Шина не такая дорогая — <a href="https://www.bbc.com/sport/formula1/22294880" target="_blank">около</a> 25 тысяч рублей, зато на год их нужно больше семиста штук.',
+      img: 'https://leonardo.osnova.io/6faf1616-7908-a129-61e8-13c7b8d18fcc/',
+      img2x: ''
+    },
     correct: 'right'
   }, {
-    from: 'покупки космической ручки',
-    to: 'коробку восковых карандашей',
-    answerTitle: 'Нельзя',
-    answer: 'Про эту пару есть миф: пока NASA разрабатывало дорогую ручку, советские космонавты пользовались карандашами. На самом деле, все сначала писали карандашами, а затем распробовали антигравитационную ручку — всего $6-10 за штуку.',
+    from: {
+      text: 'космической ручки',
+      img: 'https://leonardo.osnova.io/b7243b7a-79e3-7647-65ca-5de4cf91dec1/',
+      img2x: ''
+    },
+    to: {
+      text: 'коробку восковых<br>карандашей',
+      img: 'https://leonardo.osnova.io/244de9e0-22eb-c22a-349a-ffaaf6ae8b8c/',
+      img2x: ''
+    },
+    answer: {
+      title: 'Нет',
+      text: 'Про эту пару есть миф: пока NASA разрабатывало дорогую ручку, советские космонавты пользовались карандашами. На самом деле, все сначала писали карандашами, а затем распробовали антигравитационную ручку — всего $6-10 за штуку.',
+      img: 'https://leonardo.osnova.io/ee9e3b45-f29d-121b-5ee0-0bc07a11d392/',
+      img2x: ''
+    },
     correct: 'right'
   }, {
-    from: 'автомобиля с тысячью лошадиных сил',
-    to: 'тысячу лошадей',
-    answerTitle: 'Нет',
-    answer: 'Суперкаров такой мощности достаточно много, но кэшбека от них всё равно не хватит на огромный табун — его цена может <a href="https://journal.tinkoff.ru/horse/" target="_blank">составить</a> полмиллиона долларов.',
+    from: {
+      text: 'автомобиля с тысячью лошадиных сил',
+      img: 'https://leonardo.osnova.io/78119dcd-333c-4ff4-fa26-661ab7c56fd2/',
+      img2x: ''
+    },
+    to: {
+      text: 'тысячу лошадей',
+      img: 'https://leonardo.osnova.io/9e7b4c5e-0c3b-a2b5-64ff-a3f060ce52df/',
+      img2x: ''
+    },
+    answer: {
+      title: 'Исключено',
+      text: 'Суперкаров такой мощности достаточно много, но кэшбека от них всё равно не хватит на огромный табун — его цена может <a href="https://journal.tinkoff.ru/horse/" target="_blank">составить</a> полмиллиона долларов.',
+      img: 'https://leonardo.osnova.io/e1b8a807-7421-9823-ceee-62e7e47eccc9/',
+      img2x: ''
+    },
     correct: 'right'
   }, {
-    from: 'связки бананов в России',
-    to: 'связку бананов в Эквадоре',
-    answerTitle: 'Не получится',
-    answer: 'Российские <a href="https://www.marketing.spb.ru/mr/food/banana.htm" target="_blank">супермаркеты</a> почти не зарабатывают на бананах, но их наличие на полках — важный фактор для посетителей.',
+    from: {
+      text: 'связки бананов<br>в России',
+      img: 'https://leonardo.osnova.io/3aa2ad93-aaf7-e9a9-2c12-aeb335ba1639/',
+      img2x: ''
+    },
+    to: {
+      text: 'связку бананов<br>в Эквадоре',
+      img: 'https://leonardo.osnova.io/19f73ce4-b481-1044-5884-0e7f0cbdcefa/',
+      img2x: ''
+    },
+    answer: {
+      title: 'Не хватит',
+      text: 'Российские <a href="https://www.marketing.spb.ru/mr/food/banana.htm" target="_blank">супермаркеты</a> почти не зарабатывают на бананах, но их наличие на полках — важный фактор для посетителей.',
+      img: 'https://leonardo.osnova.io/97ee7f5d-e2d6-ba43-212b-f905126fabc3/',
+      img2x: ''
+    },
     correct: 'right'
   }, {
-    from: 'сумки Balenciaga',
-    to: 'сумку IKEA',
-    answerTitle: 'Можно',
-    answer: 'На этот счёт IKEA выпустила ироничную методичку — как отличить одну сумку от другой, но запутаться сложно: у Balenciaga она <a href="https://www.kp.ru/daily/26671/3693382/" target="_blank">дороже</a> в пару тысяч раз.',
+    from: {
+      text: 'сумки<br>Balenciaga',
+      img: 'https://leonardo.osnova.io/3d8c7fa0-3151-f52e-9b70-bb164dfb7e2e/',
+      img2x: ''
+    },
+    to: {
+      text: 'сумку IKEA',
+      img: 'https://leonardo.osnova.io/a3b76441-12f9-a408-423b-09f56e918170/',
+      img2x: ''
+    },
+    answer: {
+      title: 'Вполне',
+      text: 'На этот счёт IKEA выпустила ироничную методичку — как отличить одну сумку от другой, но запутаться сложно: у Balenciaga она <a href="https://www.kp.ru/daily/26671/3693382/" target="_blank">дороже</a> в пару тысяч раз.',
+      img: 'https://leonardo.osnova.io/bdffa464-365f-3182-0aa0-6e450c4fce56/',
+      img2x: ''
+    },
     correct: 'left'
   }, {
-    from: 'грамма антиводорода',
-    to: 'метровый куб золота',
-    answerTitle: 'Конечно',
-    answer: 'Грамм антивещества <a href="https://www.kp.by/daily/24593.4/761647/" target="_blank">оценивается</a> в сумму с 13 нулями, и это можно сравнить с деньгами всего мира.',
+    from: {
+      text: 'грамма<br>антиводорода',
+      img: 'https://leonardo.osnova.io/f8caa44c-97cf-66b7-3603-4b13efdbd825/',
+      img2x: ''
+    },
+    to: {
+      text: 'метровый куб золота',
+      img: 'https://leonardo.osnova.io/8128206f-d409-7a20-8dee-f0da4893680e/',
+      img2x: ''
+    },
+    answer: {
+      title: 'Конечно',
+      text: 'Грамм антивещества <a href="https://www.kp.by/daily/24593.4/761647/" target="_blank">оценивается</a> в сумму с 13 нулями, и это можно сравнить с деньгами всего мира.',
+      img: 'https://leonardo.osnova.io/c7aaa221-c088-e444-e469-d0605cc89038/',
+      img2x: ''
+    },
     correct: 'left'
   }, {
-    from: 'редкой 10-рублёвой монеты',
-    to: 'бракованную 10-рублёвую монету',
-    answerTitle: 'Можно',
-    answer: 'Если чеканка дала сбой, это может поднять стоимость монеты в <a href="http://moneta-russia.ru/library/monetnyy-brak-povorot-shtempelya.php" target="_blank">сотню</a> раз, но цена редких монет <a href="https://grosh-blog.ru/%D1%81%D0%B0%D0%BC%D1%8B%D0%B5-%D0%B4%D0%BE%D1%80%D0%BE%D0%B3%D0%B8%D0%B5-%D0%BC%D0%BE%D0%BD%D0%B5%D1%82%D1%8B-10-%D1%80%D1%83%D0%B1%D0%BB%D0%B5%D0%B9-%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D0%B5/" target="_blank">превышает</a> номинал в десять тысяч раз, хотя они почти не отличаются от обычных.',
+    from: {
+      text: 'редкой<br>10-рублёвой<br>монеты',
+      img: 'https://leonardo.osnova.io/d069bc99-206d-5b0d-bd66-cccecde61756/',
+      img2x: ''
+    },
+    to: {
+      text: 'бракованную<br>10-рублёвую монету',
+      img: 'https://leonardo.osnova.io/34ba867b-f69f-3a53-8fc7-63e64eb81a2b/',
+      img2x: ''
+    },
+    answer: {
+      title: 'Точно',
+      text: 'Если чеканка дала сбой, это может поднять стоимость монеты в <a href="http://moneta-russia.ru/library/monetnyy-brak-povorot-shtempelya.php" target="_blank">сотню</a> раз, но цена редких монет <a href="https://grosh-blog.ru/%D1%81%D0%B0%D0%BC%D1%8B%D0%B5-%D0%B4%D0%BE%D1%80%D0%BE%D0%B3%D0%B8%D0%B5-%D0%BC%D0%BE%D0%BD%D0%B5%D1%82%D1%8B-10-%D1%80%D1%83%D0%B1%D0%BB%D0%B5%D0%B9-%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D0%B5/" target="_blank">превышает</a> номинал в десять тысяч раз, хотя они почти не отличаются от обычных.',
+      img: 'https://leonardo.osnova.io/c85f6652-8a99-bdcb-4d9a-6c741a52ad76/',
+      img2x: ''
+    },
     correct: 'left'
   }, {
-    from: 'парковочного места в Москве',
-    to: 'гектар российской земли',
-    answerTitle: 'Да!',
-    answer: 'Цена на машиноместо в Москве может <a href="https://www.zr.ru/content/news/913545-samoe-dorogoe-parkovochnoe-mest/" target="_blank">доходить</a> до стоимости трёхкомнатной квартиры. ',
+    from: {
+      text: 'парковочного места<br>в Москве',
+      img: 'https://leonardo.osnova.io/a5bfdb3e-da59-2ecb-e6ed-c8f99b0c7a1c/',
+      img2x: ''
+    },
+    to: {
+      text: 'гектар российской<br>земли',
+      img: 'https://leonardo.osnova.io/8fb9d705-ce6c-c255-82e2-0e4c98fde6fe/',
+      img2x: ''
+    },
+    answer: {
+      title: 'Да!',
+      text: 'Цена на машиноместо в Москве может <a href="https://www.zr.ru/content/news/913545-samoe-dorogoe-parkovochnoe-mest/" target="_blank">доходить</a> до стоимости трёхкомнатной квартиры.',
+      img: 'https://leonardo.osnova.io/5aef771c-e213-f3db-2ca3-5140f4a7224f/',
+      img2x: ''
+    },
     correct: 'left'
   }],
   result: {
