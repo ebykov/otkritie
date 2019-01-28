@@ -661,25 +661,25 @@
   max-width: 100%;
 }
 .otkritie-card__answer-img[data-id="2"] {
-  top: 32%;
-  left: auto;
+  top: auto;
+  left: 4%;
 }
 .otkritie-card__answer-img[data-id="3"] {
   top: 32%;
 }
 .otkritie-card__answer-img[data-id="5"] {
-  top: 30%;
+  top: 32%;
   left: auto;
 }
-.otkritie-card__answer-img[data-id="5"] {
-  top: 12%;
+.otkritie-card__answer-img[data-id="6"] {
+  top: 10%;
 }
 .otkritie-card__answer-img[data-id="7"] {
-  top: 18%;
+  top: 36%;
 }
 .otkritie-card__answer-img[data-id="8"] {
   top: auto;
-  right: 16%;
+  right: 8%;
 }
 .otkritie-card__answer-img[data-id="9"] {
   top: 28%;
