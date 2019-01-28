@@ -687,6 +687,21 @@
 .otkritie-card__answer-img[data-id="10"] {
   top: 34%;
 }
+.otkritie-card__match {
+  position: absolute;
+  z-index: 1;
+  top: 30px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 75px;
+  height: 17px;
+}
+.otkritie-card__match > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
 .otkritie__controls {
   display: -webkit-box;
   display: -ms-flexbox;
