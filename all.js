@@ -1009,7 +1009,7 @@ var Special = function (_BaseSpecial) {
       EL.card.appendChild(EL.cHead);
       EL.card.appendChild(EL.cBottom);
 
-      EL.backCard = (0, _dom.makeElement)('div', [CSS.main + '-card', 'is-back']);
+      EL.backCard = (0, _dom.makeElement)('div', [CSS.main + '-card', CSS.main + '-card--back']);
       EL.bcHead = (0, _dom.makeElement)('div', CSS.main + '-card__head');
       EL.bcBottom = (0, _dom.makeElement)('div', CSS.main + '-card__bottom');
       EL.bcAnswer = (0, _dom.makeElement)('div', CSS.main + '-card__answer');
@@ -1105,9 +1105,21 @@ var Special = function (_BaseSpecial) {
 
       EL.help.appendChild(EL.hInner);
 
-      EL.nextCard = (0, _dom.makeElement)('div', CSS.main + '-next-card');
-      EL.ncHead = (0, _dom.makeElement)('div', CSS.main + '-next-card__head');
-      EL.ncBottom = (0, _dom.makeElement)('div', CSS.main + '-next-card__bottom');
+      EL.nextCard = (0, _dom.makeElement)('div', [CSS.main + '-card', CSS.main + '-card--next']);
+      EL.ncHead = (0, _dom.makeElement)('div', CSS.main + '-card__head');
+      EL.ncBottom = (0, _dom.makeElement)('div', CSS.main + '-card__bottom');
+
+      EL.ncTextFrom = (0, _dom.makeElement)('div', CSS.main + '-card__text-from');
+      EL.ncTextTo = (0, _dom.makeElement)('div', CSS.main + '-card__text-to');
+
+      EL.ncImgFrom = (0, _dom.makeElement)('img', CSS.main + '-card__img-from');
+      EL.ncImgTo = (0, _dom.makeElement)('img', CSS.main + '-card__img-to');
+
+      EL.ncHead.appendChild(EL.ncTextFrom);
+      EL.ncHead.appendChild(EL.ncImgFrom);
+
+      EL.ncBottom.appendChild(EL.ncTextTo);
+      EL.ncBottom.appendChild(EL.ncImgTo);
 
       EL.nextCard.appendChild(EL.ncHead);
       EL.nextCard.appendChild(EL.ncBottom);
@@ -1133,14 +1145,17 @@ var Special = function (_BaseSpecial) {
 
       var nextCard = Special.makeNextCard(index);
 
-      if (index > _data2.default.questions.length / 2) {
+      if (index === _data2.default.questions.length - 1) {
         EL.nextCards.innerHTML = '<div></div>';
         EL.nextCards.firstChild.appendChild(nextCard);
-      } else if (index > _data2.default.questions.length / 4) {
+      } else if (index > _data2.default.questions.length / 2) {
         EL.nextCards.innerHTML = '<div></div><div></div>';
         EL.nextCards.firstChild.appendChild(nextCard);
-      } else {
+      } else if (index > _data2.default.questions.length / 4) {
         EL.nextCards.innerHTML = '<div></div><div></div><div></div>';
+        EL.nextCards.firstChild.appendChild(nextCard);
+      } else {
+        EL.nextCards.innerHTML = '<div></div><div></div><div></div><div></div>';
         EL.nextCards.firstChild.appendChild(nextCard);
       }
     }
@@ -1378,23 +1393,24 @@ var Special = function (_BaseSpecial) {
     value: function makeNextCard(index) {
       var q = _data2.default.questions[index];
 
-      // EL.bcImg.src = q.img;
+      EL.ncTextFrom.innerHTML = '\u0425\u0432\u0430\u0442\u0438\u0442 \u043B\u0438 \u043A\u044D\u0448\u0431\u0435\u043A\u0430<br>\u043E\u0442 \u043F\u043E\u043A\u0443\u043F\u043A\u0438<br><b>' + q.from.text + '</b>';
+      EL.ncTextTo.innerHTML = '\u041D\u0430 <b>' + q.to.text + '?</b>';
+
+      EL.ncImgFrom.dataset.id = index + 1;
+      EL.ncImgFrom.src = q.from.img;
+      EL.ncImgFrom.srcset = q.from.img2x + ' 2x';
+
+      EL.ncImgTo.dataset.id = index + 1;
+      EL.ncImgTo.src = q.to.img;
+      EL.ncImgTo.srcset = q.to.img2x + ' 2x';
 
       return EL.nextCard;
     }
   }, {
     key: 'getResult',
     value: function getResult(score) {
-      var result = '';
-      var index = 0;
-      _data2.default.results.some(function (item, i) {
-        if (item.range[0] <= score && item.range[1] >= score) {
-          result = item;
-          index = i;
-          return true;
-        }
-        return false;
-      });
+      var index = Math.floor(Math.random() * _data2.default.results.length);
+      var result = _data2.default.results[index];
 
       return { result: result, index: index };
     }
@@ -1576,8 +1592,8 @@ exports.default = {
     },
     answer: {
       title: {
-        correct: 'Вы правы',
-        incorrect: 'Вы не правы'
+        correct: 'Вы правы.',
+        incorrect: 'Вы не правы.'
       },
       text: 'Акула <a href="https://www.aqua-shop.ru/live/morskie_ryby/hryashchevyue_ugreobraznyue_ievrigalinnyue/prod_H0e10_M" target="_blank">может</a> обойтись в несколько сотен тысяч рублей — кэшбека хватит и на плюшевую версию.',
       img: 'https://leonardo.osnova.io/137b1cef-d07d-9886-89cf-e38a35fb6325/',
@@ -1598,7 +1614,7 @@ exports.default = {
     answer: {
       title: {
         correct: 'Точно!',
-        incorrect: 'Не угадали'
+        incorrect: 'Не угадали.'
       },
       text: 'Цена костюма для выхода в открытый космос <a href="https://www.kommersant.ru/doc/3598831" target="_blank">достигает</a> $12 млн долларов, а кусочек метеорита можно <a href="https://www.chel.kp.ru/daily/26793/3828119/" target="_blank">приобрести</a> даже за 500 рублей. Опасайтесь подделок.',
       img: 'https://leonardo.osnova.io/8486ab61-577e-a7d0-1a6e-0c7c669cd428/',
@@ -1618,8 +1634,8 @@ exports.default = {
     },
     answer: {
       title: {
-        correct: 'Правильно',
-        incorrect: 'Неправильно'
+        correct: 'Правильно.',
+        incorrect: 'Неправильно.'
       },
       text: 'Шина не такая дорогая — <a href="https://www.bbc.com/sport/formula1/22294880" target="_blank">около</a> 25 тысяч рублей, зато на один сезон команде нужно больше семиста штук. ',
       img: 'https://leonardo.osnova.io/e0506495-d8fd-71e4-dc09-a16e8b72adb9/',
@@ -1639,8 +1655,8 @@ exports.default = {
     },
     answer: {
       title: {
-        correct: 'Всё правильно',
-        incorrect: 'Не угадали'
+        correct: 'Всё правильно.',
+        incorrect: 'Не угадали.'
       },
       text: 'Про эту пару есть миф: пока NASA разрабатывало дорогую ручку, советские космонавты пользовались карандашами. На самом деле, все сначала писали карандашами, а затем распробовали антигравитационную ручку — всего $6-10 за штуку.',
       img: 'https://leonardo.osnova.io/031e5f2a-41b0-6391-dee0-65544145133c/',
@@ -1660,8 +1676,8 @@ exports.default = {
     },
     answer: {
       title: {
-        correct: 'Верно',
-        incorrect: 'Неверно'
+        correct: 'Верно.',
+        incorrect: 'Неверно.'
       },
       text: 'Суперкаров такой мощности достаточно много, но кэшбека от них всё равно не хватит на огромный табун — его цена может <a href="https://journal.tinkoff.ru/horse/" target="_blank">составить</a> полмиллиона долларов.',
       img: 'https://leonardo.osnova.io/045addb1-11c4-2d1f-9bc2-1e777f1687c5/',
@@ -1681,8 +1697,8 @@ exports.default = {
     },
     answer: {
       title: {
-        correct: 'Угадали',
-        incorrect: 'Увы, ошиблись'
+        correct: 'Угадали.',
+        incorrect: 'Увы, ошиблись.'
       },
       text: 'Российские <a href="https://www.marketing.spb.ru/mr/food/banana.htm" target="_blank">супермаркеты</a> почти не зарабатывают на бананах, но их наличие на полках — важный фактор для посетителей.',
       img: 'https://leonardo.osnova.io/ecbceac6-7479-9029-4265-7896422e2202/',
@@ -1703,7 +1719,7 @@ exports.default = {
     answer: {
       title: {
         correct: 'Конечно!',
-        incorrect: 'Не совсем'
+        incorrect: 'Не совсем.'
       },
       text: 'На этот счёт IKEA выпустила ироничную методичку — как отличить одну сумку от другой, но запутаться сложно: у Balenciaga она <a href="https://www.kp.ru/daily/26671/3693382/" target="_blank">дороже</a> в пару тысяч раз.',
       img: 'https://leonardo.osnova.io/8c8307f0-4611-a4f6-0610-68d5c292505a/',
@@ -1723,8 +1739,8 @@ exports.default = {
     },
     answer: {
       title: {
-        correct: 'Запросто',
-        incorrect: 'Всё не так'
+        correct: 'Запросто.',
+        incorrect: 'Всё не так.'
       },
       text: 'Грамм антивещества <a href="https://www.kp.by/daily/24593.4/761647/" target="_blank">оценивается</a> в сумму с 13 нулями, и это можно сравнить с деньгами всего мира.',
       img: 'https://leonardo.osnova.io/8477ce80-dcf4-2519-c399-60334b99555f/',
@@ -1765,8 +1781,8 @@ exports.default = {
     },
     answer: {
       title: {
-        correct: 'Вы правы',
-        incorrect: 'Неверно'
+        correct: 'Вы правы.',
+        incorrect: 'Неверно.'
       },
       text: 'Цена на машиноместо в Москве может <a href="https://www.zr.ru/content/news/913545-samoe-dorogoe-parkovochnoe-mest/" target="_blank">доходить</a> до стоимости трёхкомнатной квартиры, но хватит и достаточно рядового.',
       img: 'https://leonardo.osnova.io/5aef771c-e213-f3db-2ca3-5140f4a7224f/',

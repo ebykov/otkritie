@@ -366,8 +366,8 @@
   right: 0;
   margin: 0 auto;
   width: 100%;
-  height: 400px;
-  border-radius: 10px;
+  height: 416px;
+  border-radius: 15px;
   background-color: #4fb3d9;
   -webkit-box-shadow: 0 3px 3px rgba(0,0,0,0.1);
           box-shadow: 0 3px 3px rgba(0,0,0,0.1);
@@ -379,18 +379,25 @@
   background-color: #c4c4c4;
 }
 .otkritie__next-cards > div:nth-child(1) {
+  z-index: 4;
+  bottom: 0;
+  -webkit-transform: scale(0.98);
+          transform: scale(0.98);
+}
+.otkritie__next-cards > div:nth-child(2) {
   z-index: 3;
   bottom: -5px;
   -webkit-transform: scale(0.96);
           transform: scale(0.96);
 }
-.otkritie__next-cards > div:nth-child(2) {
+.otkritie__next-cards > div:nth-child(3) {
   z-index: 2;
   bottom: -10px;
   -webkit-transform: scale(0.92);
           transform: scale(0.92);
 }
-.otkritie__next-cards > div:nth-child(3) {
+.otkritie__next-cards > div:nth-child(4) {
+  z-index: 1;
   bottom: -15px;
   -webkit-transform: scale(0.88);
           transform: scale(0.88);
@@ -407,7 +414,7 @@
   height: 416px;
   overflow: hidden;
   border: 2px solid #4fb3d9;
-  border-radius: 15px;
+  border-radius: 10px;
   background-color: #fff;
   -webkit-user-select: none;
      -moz-user-select: none;
@@ -420,31 +427,36 @@
   border-color: #c4c4c4;
 }
 .otkritie-next-card__head {
+  position: relative;
   -ms-flex-negative: 0;
       flex-shrink: 0;
-  position: relative;
   height: 240px;
-  background-color: #f4f4f4;
+  padding: 38px 20px 0;
+  background-color: #fff;
+}
+.otkritie.is-answered .otkritie-next-card__head > div {
+  color: #c4c4c4 !important;
 }
 .otkritie-next-card__bottom {
+  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   height: 100%;
+  padding: 20px 22px 0;
   background-color: #4fb3d9;
 }
 .otkritie.is-answered .otkritie-next-card__bottom {
+  color: #c4c4c4 !important;
   background-color: #c4c4c4;
 }
 .otkritie__card-wrapper {
   position: relative;
   z-index: 2;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   -webkit-perspective: 1000px;
           perspective: 1000px;
 }
@@ -494,7 +506,11 @@
   -webkit-transform: translate3d(0, 0, 0);
           transform: translate3d(0, 0, 0);
 }
-.otkritie-card.is-back {
+.otkritie-card--next {
+  -webkit-filter: blur(6px);
+          filter: blur(6px);
+}
+.otkritie-card--back {
   -webkit-transform: translate3d(0, 0, 0) rotateY(180deg);
           transform: translate3d(0, 0, 0) rotateY(180deg);
 }
@@ -529,7 +545,7 @@
   -webkit-transform: translate3d(0, 0, 0);
           transform: translate3d(0, 0, 0);
 }
-.otkritie-card.is-back .otkritie-card__head {
+.otkritie-card--back .otkritie-card__head {
   height: 170px;
 }
 .otkritie-card__bottom {
@@ -561,6 +577,9 @@
   font-size: 24px;
   line-height: normal;
 }
+.otkritie-card__text-from b {
+  font-weight: 500;
+}
 .otkritie-card__text-to {
   position: relative;
   z-index: 1;
@@ -568,11 +587,18 @@
   font-size: 22px;
   line-height: 1.3em;
 }
+.otkritie-card__text-to b {
+  font-weight: 500;
+}
 .otkritie-card__img-from {
   position: absolute;
   top: 0;
   right: 0;
   display: block;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   -webkit-transform: translate3d(0, 0, 0);
           transform: translate3d(0, 0, 0);
 }
@@ -621,6 +647,10 @@
   right: 0;
   margin: 0 auto;
   display: block;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 .otkritie-card__img-to[data-id="2"] {
   left: 24%;
@@ -643,12 +673,24 @@
 .otkritie-card__answer-title {
   color: #fff;
   font-size: 22px;
-  font-weight: 700;
+  font-weight: 500;
 }
 .otkritie-card__answer-text {
   margin-top: 15px;
   color: #fff;
   font-size: 17px;
+}
+.otkritie-card__answer-text a {
+  color: #fff !important;
+  border-bottom: 1px solid rgba(255,255,255,0.8) !important;
+}
+.otkritie-card__answer-text a:hover {
+  opacity: 0.6;
+}
+@media (hover: none), (hover: on-demand) {
+  .otkritie-card__answer-text a:hover {
+    opacity: 1;
+  }
 }
 .otkritie-card__answer-img {
   position: absolute;
