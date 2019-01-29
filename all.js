@@ -1743,29 +1743,31 @@ exports.default = {
     },
     correct: 'right',
     sign: 'batch'
-  }, {
-    from: {
-      text: 'грамма<br>антиводорода',
-      img: 'https://leonardo.osnova.io/f8caa44c-97cf-66b7-3603-4b13efdbd825/',
-      img2x: 'https://leonardo.osnova.io/027ae3ba-f9bb-7c52-f6af-6f924be04155/'
-    },
-    to: {
-      text: 'метровый куб золота',
-      img: 'https://leonardo.osnova.io/8128206f-d409-7a20-8dee-f0da4893680e/',
-      img2x: 'https://leonardo.osnova.io/575388d4-3574-87e3-2eed-39f603fe6062/'
-    },
-    answer: {
-      title: {
-        correct: 'Запросто.',
-        incorrect: 'Всё не так.'
-      },
-      text: 'Грамм антивещества <a href="https://www.kp.by/daily/24593.4/761647/" target="_blank">оценивается</a> в сумму с 13 нулями, и это можно сравнить с деньгами всего мира.',
-      img: 'https://leonardo.osnova.io/8477ce80-dcf4-2519-c399-60334b99555f/',
-      img2x: 'https://leonardo.osnova.io/0f36f8e9-094f-c3f2-5335-e3642a0c4f3a/'
-    },
-    correct: 'right',
-    sign: 'snatch'
-  }, {
+  },
+  //   {
+  //   from: {
+  //     text: 'грамма<br>антиводорода',
+  //     img: 'https://leonardo.osnova.io/f8caa44c-97cf-66b7-3603-4b13efdbd825/',
+  //     img2x: 'https://leonardo.osnova.io/027ae3ba-f9bb-7c52-f6af-6f924be04155/',
+  //   },
+  //   to: {
+  //     text: 'метровый куб золота',
+  //     img: 'https://leonardo.osnova.io/8128206f-d409-7a20-8dee-f0da4893680e/',
+  //     img2x: 'https://leonardo.osnova.io/575388d4-3574-87e3-2eed-39f603fe6062/',
+  //   },
+  //   answer: {
+  //     title: {
+  //       correct: 'Запросто.',
+  //       incorrect: 'Всё не так.',
+  //     },
+  //     text: 'Грамм антивещества <a href="https://www.kp.by/daily/24593.4/761647/" target="_blank">оценивается</a> в сумму с 13 нулями, и это можно сравнить с деньгами всего мира.',
+  //     img: 'https://leonardo.osnova.io/8477ce80-dcf4-2519-c399-60334b99555f/',
+  //     img2x: 'https://leonardo.osnova.io/0f36f8e9-094f-c3f2-5335-e3642a0c4f3a/',
+  //   },
+  //   correct: 'right',
+  //   sign: 'snatch',
+  // },
+  {
     from: {
       text: 'редкой<br>10-рублёвой<br>монеты',
       img: 'https://leonardo.osnova.io/d069bc99-206d-5b0d-bd66-cccecde61756/',

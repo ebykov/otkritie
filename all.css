@@ -402,54 +402,6 @@
   -webkit-transform: scale(0.88);
           transform: scale(0.88);
 }
-.otkritie-next-card {
-  position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  height: 416px;
-  overflow: hidden;
-  border: 2px solid #4fb3d9;
-  border-radius: 10px;
-  background-color: #fff;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-  -webkit-filter: blur(6px);
-          filter: blur(6px);
-}
-.otkritie.is-answered .otkritie-next-card {
-  border-color: #c4c4c4;
-}
-.otkritie-next-card__head {
-  position: relative;
-  -ms-flex-negative: 0;
-      flex-shrink: 0;
-  height: 240px;
-  padding: 38px 20px 0;
-  background-color: #fff;
-}
-.otkritie.is-answered .otkritie-next-card__head > div {
-  color: #c4c4c4 !important;
-}
-.otkritie-next-card__bottom {
-  position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  height: 100%;
-  padding: 20px 22px 0;
-  background-color: #4fb3d9;
-}
-.otkritie.is-answered .otkritie-next-card__bottom {
-  color: #c4c4c4 !important;
-  background-color: #c4c4c4;
-}
 .otkritie__card-wrapper {
   position: relative;
   z-index: 2;
@@ -632,12 +584,9 @@
   top: 16%;
 }
 .otkritie-card__img-from[data-id="8"] {
-  top: 32%;
-}
-.otkritie-card__img-from[data-id="9"] {
   top: 20%;
 }
-.otkritie-card__img-from[data-id="10"] {
+.otkritie-card__img-from[data-id="9"] {
   top: 52%;
 }
 .otkritie-card__img-to {
@@ -665,9 +614,6 @@
   left: 6%;
 }
 .otkritie-card__img-to[data-id="8"] {
-  right: 32%;
-}
-.otkritie-card__img-to[data-id="9"] {
   right: 24%;
 }
 .otkritie-card__answer-title {
@@ -720,13 +666,9 @@
   top: 36%;
 }
 .otkritie-card__answer-img[data-id="8"] {
-  top: auto;
-  right: 8%;
-}
-.otkritie-card__answer-img[data-id="9"] {
   top: 28%;
 }
-.otkritie-card__answer-img[data-id="10"] {
+.otkritie-card__answer-img[data-id="9"] {
   top: 34%;
 }
 .otkritie-card__sign {
