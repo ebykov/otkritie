@@ -729,17 +729,17 @@
 .otkritie-card__answer-img[data-id="10"] {
   top: 34%;
 }
-.otkritie-card__match {
+.otkritie-card__sign {
   position: absolute;
   z-index: 1;
   top: 30px;
   left: 0;
   right: 0;
   margin: 0 auto;
-  width: 75px;
-  height: 17px;
+  width: 80px;
+  height: 18px;
 }
-.otkritie-card__match > svg {
+.otkritie-card__sign > svg {
   display: block;
   width: 100%;
   height: 100%;
@@ -805,9 +805,25 @@
   transition: box-shadow 0.2s;
   transition: box-shadow 0.2s, -webkit-box-shadow 0.2s;
 }
+.otkritie__btn > svg {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 20px;
+  height: 20px;
+  fill: #ccc;
+  -webkit-transition: fill 0.2s;
+  transition: fill 0.2s;
+}
 .otkritie__btn:hover {
   -webkit-box-shadow: 0 2px 4px rgba(0,0,0,0.16);
           box-shadow: 0 2px 4px rgba(0,0,0,0.16);
+}
+.otkritie__btn:hover > svg {
+  fill: #e5e5e5;
 }
 @media (hover: none), (hover: on-demand) {
   .otkritie__btn:hover {
@@ -886,6 +902,9 @@
   font-size: 28px;
   font-weight: 700;
   line-height: 1.3em;
+}
+.otkritie-result__title i {
+  font-style: italic;
 }
 .otkritie-result__share {
   margin-top: 35px;
