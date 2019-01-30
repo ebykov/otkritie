@@ -1195,6 +1195,8 @@ var Special = function (_BaseSpecial) {
         EL.optionR.addEventListener('mouseover', this.onOptionHover.bind(this));
       }
 
+      Special.changeCardImages(this.activeIndex);
+
       this.initCardEvents();
 
       Analytics.sendEvent('Start', 'Show');
@@ -1208,6 +1210,8 @@ var Special = function (_BaseSpecial) {
 
       EL.nextBtn.textContent = 'Далее';
       EL.nextBtn.dataset.click = 'continue';
+
+      Special.changeCardImages(this.activeIndex);
 
       this.setInitialParams();
       this.initCardEvents();
@@ -1227,11 +1231,6 @@ var Special = function (_BaseSpecial) {
 
         EL.cards.removeChild(EL.cardWrapper);
         EL.cardInner.style.transform = '';
-
-        EL.cImgFrom.src = '';
-        EL.cImgFrom.srcset = '';
-        EL.cImgTo.src = '';
-        EL.cImgTo.srcset = '';
 
         EL.backCard.classList.remove('is-correct');
         EL.backCard.classList.remove('is-incorrect');
@@ -1263,17 +1262,10 @@ var Special = function (_BaseSpecial) {
       EL.cTextFrom.innerHTML = '\u0425\u0432\u0430\u0442\u0438\u0442 \u043B\u0438 \u043A\u044D\u0448\u0431\u0435\u043A\u0430<br>\u043E\u0442 \u043F\u043E\u043A\u0443\u043F\u043A\u0438<br><b>' + question.from.text + '</b>';
       EL.cTextTo.innerHTML = '\u041D\u0430 <b>' + question.to.text + '?</b>';
 
-      EL.cImgFrom.dataset.id = this.activeIndex + 1;
-      EL.cImgFrom.src = question.from.img;
-      EL.cImgFrom.srcset = question.from.img2x + ' 2x';
-      EL.cImgTo.dataset.id = this.activeIndex + 1;
-      EL.cImgTo.src = question.to.img;
-      EL.cImgTo.srcset = question.to.img2x + ' 2x';
-
       this.showCount();
 
       EL.cards.appendChild(EL.cardWrapper);
-      (0, _animate.animate)(EL.cardWrapper, 'cardZoomIn', '200ms');
+      (0, _animate.animate)(EL.cardWrapper, 'cardZoomIn', '300ms');
     }
   }, {
     key: 'answer',
@@ -1296,6 +1288,8 @@ var Special = function (_BaseSpecial) {
   }, {
     key: 'makeAnswer',
     value: function makeAnswer(question, type) {
+      var _this5 = this;
+
       this.container.classList.add('is-answered');
 
       EL.cardInner.style.transform = 'translate3d(0,0,0) rotateY(-180deg)';
@@ -1321,6 +1315,12 @@ var Special = function (_BaseSpecial) {
       EL.bcAnswerImg.src = question.answer.img;
       EL.bcAnswerImg.srcset = question.answer.img2x + ' 2x';
       EL.bcAnswerText.innerHTML = question.answer.text;
+
+      if (this.activeIndex < _data2.default.questions.length - 1) {
+        this.timer = setTimeout(function () {
+          Special.changeCardImages(_this5.activeIndex + 1);
+        }, 400);
+      }
 
       if (this.activeIndex === _data2.default.questions.length - 1) {
         EL.nextBtn.innerHTML = 'Результат';
@@ -1423,6 +1423,18 @@ var Special = function (_BaseSpecial) {
       EL.ncImgTo.srcset = q.to.img2x + ' 2x';
 
       return EL.nextCard;
+    }
+  }, {
+    key: 'changeCardImages',
+    value: function changeCardImages(index) {
+      var q = _data2.default.questions[index];
+
+      EL.cImgFrom.dataset.id = index + 1;
+      EL.cImgFrom.src = q.from.img;
+      EL.cImgFrom.srcset = q.from.img2x + ' 2x';
+      EL.cImgTo.dataset.id = index + 1;
+      EL.cImgTo.src = q.to.img;
+      EL.cImgTo.srcset = q.to.img2x + ' 2x';
     }
   }, {
     key: 'getResult',
