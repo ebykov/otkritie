@@ -1036,7 +1036,7 @@ var Special = function (_BaseSpecial) {
       EL.cards.appendChild(EL.nextCards);
       EL.cards.appendChild(EL.cardWrapper);
 
-      if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
+      if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent) || /firefox/i.test(navigator.userAgent)) {
         EL.card.style.webkitBackfaceVisibility = 'hidden';
         EL.backCard.style.webkitBackfaceVisibility = 'hidden';
       }
@@ -1227,6 +1227,11 @@ var Special = function (_BaseSpecial) {
 
         EL.cards.removeChild(EL.cardWrapper);
         EL.cardInner.style.transform = '';
+
+        EL.cImgFrom.src = '';
+        EL.cImgFrom.srcset = '';
+        EL.cImgTo.src = '';
+        EL.cImgTo.srcset = '';
 
         EL.backCard.classList.remove('is-correct');
         EL.backCard.classList.remove('is-incorrect');
@@ -1640,7 +1645,7 @@ exports.default = {
         correct: 'Точно!',
         incorrect: 'Не угадали.'
       },
-      text: 'Цена костюма для выхода в открытый космос достигает $12 млн долларов, а кусочек метеорита можно приобрести даже за 500 рублей. Опасайтесь подделок.',
+      text: 'Цена костюма для выхода в открытый космос достигает $12 млн, а кусочек метеорита можно приобрести даже за 500 рублей. Опасайтесь подделок.',
       img: 'https://leonardo.osnova.io/8486ab61-577e-a7d0-1a6e-0c7c669cd428/',
       img2x: 'https://leonardo.osnova.io/a592ea72-6d1b-4036-210b-6cab1aec3640/'
     },
@@ -1814,7 +1819,7 @@ exports.default = {
         correct: 'Вы правы.',
         incorrect: 'Неверно.'
       },
-      text: 'Цена на машиноместо в Москве может доходить до стоимости трёхкомнатной квартиры, но хватит и достаточно рядового.',
+      text: 'Машиноместо в Москве может стоить как трёхкомнатная квартира — зато гектар в Саратовской области легко купить и за 20 тысяч рублей.',
       img: 'https://leonardo.osnova.io/5aef771c-e213-f3db-2ca3-5140f4a7224f/',
       img2x: 'https://leonardo.osnova.io/8be8ec4a-8fc2-1566-7cac-c5b9116b82b9/'
     },
