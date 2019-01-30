@@ -1649,8 +1649,8 @@ exports.default = {
   }, {
     from: {
       text: 'шины для<br>болида «Формулы 1»',
-      img: 'https://leonardo.osnova.io/477a381c-b706-4d2c-25c8-ca81519634d7/',
-      img2x: 'https://leonardo.osnova.io/99525118-70a8-f85c-12ac-b6f2291d1eb7/'
+      img: 'https://leonardo.osnova.io/a729caf3-ddd5-5faa-bef4-9de1fecfbd72/',
+      img2x: 'https://leonardo.osnova.io/b6cd6025-370c-4a5d-c69d-21a22ea29aec/'
     },
     to: {
       text: 'ящик<br>шампанского',
@@ -1793,8 +1793,8 @@ exports.default = {
         incorrect: 'Мимо!'
       },
       text: 'Если чеканка дала сбой, это может поднять стоимость монеты в сотню раз, но цена редких монет превышает номинал в десять тысяч раз, хотя они почти не отличаются от обычных.',
-      img: 'https://leonardo.osnova.io/9a90bb66-bf79-39a9-39d2-d0f57e8e1712/',
-      img2x: 'https://leonardo.osnova.io/27054532-dbef-b327-ebe6-5d94c110d4f2/'
+      img: 'https://leonardo.osnova.io/1f41e0dc-8fe7-8860-d316-3e540c268d12/',
+      img2x: 'https://leonardo.osnova.io/c13f2eb9-c141-16db-e102-5b7e830409b7/'
     },
     correct: 'right',
     sign: 'sdacha'
