@@ -1840,8 +1840,8 @@ exports.default = {
     img2x: 'https://leonardo.osnova.io/49c60bab-546d-e228-b616-c8bffad2ad69/'
   }, {
     title: 'На космической станции<br>нельзя писать<br>графитовым карандашом',
-    img: 'https://leonardo.osnova.io/9fe6db55-1272-e242-18a6-4d1ee3f5d9d3/',
-    img2x: 'https://leonardo.osnova.io/a04e6ea7-d719-093c-cf0f-8a88e7567891/'
+    img: 'https://leonardo.osnova.io/187d7499-fddb-91e9-348a-288c09e9d238/',
+    img2x: 'https://leonardo.osnova.io/6b122cf5-be48-bb4c-725a-e9705e548840/'
   }, {
     title: 'Если сумка шуршит —<br>это IKEA,<br>а не Balenciaga',
     img: 'https://leonardo.osnova.io/4654d98d-2b0d-9e67-d9f3-752781d540e3/',

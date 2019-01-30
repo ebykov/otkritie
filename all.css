@@ -919,6 +919,7 @@
 .otkritie-result__text-img > img {
   display: block;
   margin: 0 auto;
+  width: 180px;
 }
 @media (min-width: 800px) {
   .otkritie-result__text-img {
