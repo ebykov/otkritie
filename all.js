@@ -1211,10 +1211,11 @@ var Special = function (_BaseSpecial) {
       EL.nextBtn.textContent = 'Далее';
       EL.nextBtn.dataset.click = 'continue';
 
-      Special.changeCardImages(this.activeIndex);
-
       this.setInitialParams();
       this.initCardEvents();
+
+      Special.changeCardImages(this.activeIndex);
+
       this.makeNextQuestion();
     }
   }, {
