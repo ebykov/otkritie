@@ -1851,11 +1851,13 @@ exports.default = {
     title: 'Проверить метеорит<br>на подлинность стоит<br>три тысячи рублей',
     img: 'https://leonardo.osnova.io/55158df9-a2fc-4e57-b56b-bb224e846142/',
     img2x: 'https://leonardo.osnova.io/7136b697-26bf-c735-7d97-d49a2785f192/'
-  }, {
-    title: 'Грамм антиводорода<br>стоит<br>$10000000000000',
-    img: 'https://leonardo.osnova.io/3ff55bc0-16c2-ba84-f55c-1c4436497157/',
-    img2x: 'https://leonardo.osnova.io/49c60bab-546d-e228-b616-c8bffad2ad69/'
-  }, {
+  },
+  //   {
+  //   title: 'Грамм антиводорода<br>стоит<br>$10000000000000',
+  //   img: 'https://leonardo.osnova.io/3ff55bc0-16c2-ba84-f55c-1c4436497157/',
+  //   img2x: 'https://leonardo.osnova.io/49c60bab-546d-e228-b616-c8bffad2ad69/',
+  // },
+  {
     title: 'На космической станции<br>нельзя писать<br>графитовым карандашом',
     img: 'https://leonardo.osnova.io/187d7499-fddb-91e9-348a-288c09e9d238/',
     img2x: 'https://leonardo.osnova.io/6b122cf5-be48-bb4c-725a-e9705e548840/'
