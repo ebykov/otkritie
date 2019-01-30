@@ -1065,9 +1065,10 @@ var Special = function (_BaseSpecial) {
       EL.rText = (0, _dom.makeElement)('div', CSS.main + '-result__text', {
         innerHTML: _data2.default.result.text
       });
-      EL.rTextImg = (0, _dom.makeElement)('img', CSS.main + '-result__text-img', {
-        src: _data2.default.result.img,
-        srcset: _data2.default.result.img2x + ' 2x'
+      EL.rTextImg = (0, _dom.makeElement)('a', CSS.main + '-result__text-img', {
+        href: 'https://www.open.ru/',
+        target: '_blank',
+        innerHTML: '<img src="' + _data2.default.result.img + '" srcset="' + _data2.default.result.img2x + ' 2x">'
       });
 
       EL.rHeadInner.appendChild(EL.rResult);
@@ -1089,7 +1090,7 @@ var Special = function (_BaseSpecial) {
         innerHTML: _svg2.default.swipe
       });
       EL.hText = (0, _dom.makeElement)('div', CSS.main + '-help__text', {
-        innerHTML: '<p>Свайпайте карточку влево, если считаете, что можно.</p><p>Вправо — если нет.</p>'
+        innerHTML: '<p>Свайпайте карточку вправо, если считаете, что правильный ответ «да».</p><p>Влево — если «нет».</p>'
       });
       EL.hBtn = (0, _dom.makeElement)('button', CSS.main + '-help__btn', {
         textContent: 'Понятно',
@@ -1229,6 +1230,8 @@ var Special = function (_BaseSpecial) {
 
         EL.backCard.classList.remove('is-correct');
         EL.backCard.classList.remove('is-incorrect');
+        EL.bcAnswerImg.src = '';
+        EL.bcAnswerImg.srcset = '';
 
         if (EL.bcHead.contains(EL.bcSign)) {
           EL.bcHead.removeChild(EL.bcSign);
@@ -1331,6 +1334,12 @@ var Special = function (_BaseSpecial) {
 
       EL.backCard.classList.remove('is-correct');
       EL.backCard.classList.remove('is-incorrect');
+      EL.bcAnswerImg.src = '';
+      EL.bcAnswerImg.srcset = '';
+
+      if (EL.bcHead.contains(EL.bcSign)) {
+        EL.bcHead.removeChild(EL.bcSign);
+      }
 
       this.container.classList.remove('is-answered');
       this.container.classList.add('is-result');
@@ -1609,7 +1618,7 @@ exports.default = {
         correct: 'Вы правы.',
         incorrect: 'Вы не правы.'
       },
-      text: 'Акула <a href="https://www.aqua-shop.ru/live/morskie_ryby/hryashchevyue_ugreobraznyue_ievrigalinnyue/prod_H0e10_M" target="_blank">может</a> обойтись в несколько сотен тысяч рублей — кэшбека хватит и на плюшевую версию.',
+      text: 'Акула может обойтись в несколько сотен тысяч рублей — кэшбека хватит и на плюшевую версию.',
       img: 'https://leonardo.osnova.io/137b1cef-d07d-9886-89cf-e38a35fb6325/',
       img2x: 'https://leonardo.osnova.io/921c9795-95e8-6586-c3be-2c5779d2e8ea/'
     },
@@ -1631,7 +1640,7 @@ exports.default = {
         correct: 'Точно!',
         incorrect: 'Не угадали.'
       },
-      text: 'Цена костюма для выхода в открытый космос <a href="https://www.kommersant.ru/doc/3598831" target="_blank">достигает</a> $12 млн долларов, а кусочек метеорита можно <a href="https://www.chel.kp.ru/daily/26793/3828119/" target="_blank">приобрести</a> даже за 500 рублей. Опасайтесь подделок.',
+      text: 'Цена костюма для выхода в открытый космос достигает $12 млн долларов, а кусочек метеорита можно приобрести даже за 500 рублей. Опасайтесь подделок.',
       img: 'https://leonardo.osnova.io/8486ab61-577e-a7d0-1a6e-0c7c669cd428/',
       img2x: 'https://leonardo.osnova.io/a592ea72-6d1b-4036-210b-6cab1aec3640/'
     },
@@ -1695,7 +1704,7 @@ exports.default = {
         correct: 'Верно.',
         incorrect: 'Неверно.'
       },
-      text: 'Суперкаров такой мощности достаточно много, но кэшбека от них всё равно не хватит на огромный табун — его цена может <a href="https://journal.tinkoff.ru/horse/" target="_blank">составить</a> полмиллиона долларов.',
+      text: 'Суперкаров такой мощности достаточно много, но кэшбека от них всё равно не хватит на огромный табун — его цена может составить полмиллиона долларов.',
       img: 'https://leonardo.osnova.io/045addb1-11c4-2d1f-9bc2-1e777f1687c5/',
       img2x: 'https://leonardo.osnova.io/ddcdde89-ee57-b330-29d5-49daee34d048/'
     },
@@ -1716,7 +1725,7 @@ exports.default = {
         correct: 'Угадали.',
         incorrect: 'Увы, ошиблись.'
       },
-      text: 'Российские <a href="https://www.marketing.spb.ru/mr/food/banana.htm" target="_blank">супермаркеты</a> почти не зарабатывают на бананах, но их наличие на полках — важный фактор для посетителей.',
+      text: 'Российские супермаркеты почти не зарабатывают на бананах, но их наличие на полках — важный фактор для посетителей.',
       img: 'https://leonardo.osnova.io/ecbceac6-7479-9029-4265-7896422e2202/',
       img2x: 'https://leonardo.osnova.io/3ee4a470-0ceb-bb61-2009-04649c636d6c/'
     },
@@ -1737,7 +1746,7 @@ exports.default = {
         correct: 'Конечно!',
         incorrect: 'Не совсем.'
       },
-      text: 'На этот счёт IKEA выпустила ироничную методичку — как отличить одну сумку от другой, но запутаться сложно: у Balenciaga она <a href="https://www.kp.ru/daily/26671/3693382/" target="_blank">дороже</a> в пару тысяч раз.',
+      text: 'На этот счёт IKEA выпустила ироничную методичку — как отличить одну сумку от другой, но запутаться сложно: у Balenciaga она дороже в пару тысяч раз.',
       img: 'https://leonardo.osnova.io/8c8307f0-4611-a4f6-0610-68d5c292505a/',
       img2x: 'https://leonardo.osnova.io/22b0fe9e-59fd-88c2-eee3-9b6a7ca00aef/'
     },
@@ -1770,8 +1779,8 @@ exports.default = {
   {
     from: {
       text: 'редкой<br>10-рублёвой<br>монеты',
-      img: 'https://leonardo.osnova.io/d069bc99-206d-5b0d-bd66-cccecde61756/',
-      img2x: 'https://leonardo.osnova.io/f0a50662-7a71-2a21-dbd3-3c491835f942/'
+      img: 'https://leonardo.osnova.io/057964a3-ad7a-d28d-7e3a-b44e96f826b6/',
+      img2x: 'https://leonardo.osnova.io/4f95fd06-af4e-7b26-9696-069041a1e2ab/'
     },
     to: {
       text: 'бракованную<br>10-рублёвую монету',
@@ -1783,7 +1792,7 @@ exports.default = {
         correct: 'Точно!',
         incorrect: 'Мимо!'
       },
-      text: 'Если чеканка дала сбой, это может поднять стоимость монеты в <a href="http://moneta-russia.ru/library/monetnyy-brak-povorot-shtempelya.php" target="_blank">сотню</a> раз, но цена редких монет <a href="https://grosh-blog.ru/%D1%81%D0%B0%D0%BC%D1%8B%D0%B5-%D0%B4%D0%BE%D1%80%D0%BE%D0%B3%D0%B8%D0%B5-%D0%BC%D0%BE%D0%BD%D0%B5%D1%82%D1%8B-10-%D1%80%D1%83%D0%B1%D0%BB%D0%B5%D0%B9-%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D0%B5/" target="_blank">превышает</a> номинал в десять тысяч раз, хотя они почти не отличаются от обычных.',
+      text: 'Если чеканка дала сбой, это может поднять стоимость монеты в сотню раз, но цена редких монет превышает номинал в десять тысяч раз, хотя они почти не отличаются от обычных.',
       img: 'https://leonardo.osnova.io/9a90bb66-bf79-39a9-39d2-d0f57e8e1712/',
       img2x: 'https://leonardo.osnova.io/27054532-dbef-b327-ebe6-5d94c110d4f2/'
     },
@@ -1805,7 +1814,7 @@ exports.default = {
         correct: 'Вы правы.',
         incorrect: 'Неверно.'
       },
-      text: 'Цена на машиноместо в Москве может <a href="https://www.zr.ru/content/news/913545-samoe-dorogoe-parkovochnoe-mest/" target="_blank">доходить</a> до стоимости трёхкомнатной квартиры, но хватит и достаточно рядового.',
+      text: 'Цена на машиноместо в Москве может доходить до стоимости трёхкомнатной квартиры, но хватит и достаточно рядового.',
       img: 'https://leonardo.osnova.io/5aef771c-e213-f3db-2ca3-5140f4a7224f/',
       img2x: 'https://leonardo.osnova.io/8be8ec4a-8fc2-1566-7cac-c5b9116b82b9/'
     },

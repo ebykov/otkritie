@@ -704,7 +704,7 @@
 }
 .otkritie__option {
   position: relative;
-  margin: 0 2px;
+  margin: 0 4px;
 }
 .otkritie__option-hint {
   position: absolute;
@@ -791,12 +791,17 @@
   position: relative;
   padding: 10px 15px;
   color: #fff;
-  border-radius: 10px;
   background-color: #4fb3d9;
+  overflow: hidden;
 }
 @media (min-width: 680px) {
   .otkritie-result__head {
     padding: 30px 38px;
+  }
+}
+@media (min-width: 787px) {
+  .otkritie-result__head {
+    border-radius: 10px;
   }
 }
 .otkritie-result__head-inner {
@@ -808,11 +813,16 @@
   margin-top: 15px;
   padding: 10px 15px;
   border: 1px solid #4fb3d9;
-  border-radius: 10px;
+  overflow: hidden;
 }
 @media (min-width: 680px) {
   .otkritie-result__bottom {
     padding: 16px 38px 28px;
+  }
+}
+@media (min-width: 787px) {
+  .otkritie-result__bottom {
+    border-radius: 10px;
   }
 }
 .otkritie-result__img {
@@ -820,10 +830,33 @@
   right: 0;
   bottom: 0;
   display: block;
+  -webkit-transform-origin: bottom right;
+          transform-origin: bottom right;
+  -webkit-transform: scale(0.4);
+          transform: scale(0.4);
 }
-@media (max-width: 679px) {
+@media (min-width: 375px) {
   .otkritie-result__img {
-    display: none !important;
+    -webkit-transform: scale(0.5);
+            transform: scale(0.5);
+  }
+}
+@media (min-width: 480px) {
+  .otkritie-result__img {
+    -webkit-transform: scale(0.6);
+            transform: scale(0.6);
+  }
+}
+@media (min-width: 568px) {
+  .otkritie-result__img {
+    -webkit-transform: scale(0.7);
+            transform: scale(0.7);
+  }
+}
+@media (min-width: 680px) {
+  .otkritie-result__img {
+    -webkit-transform: scale(1);
+            transform: scale(1);
   }
 }
 .otkritie-result__img[data-id="1"] {
@@ -881,13 +914,18 @@
 }
 .otkritie-result__text-img {
   display: block;
-  margin: 0 auto 10px;
+  margin-bottom: 10px;
+}
+.otkritie-result__text-img > img {
+  display: block;
+  margin: 0 auto;
 }
 @media (min-width: 800px) {
   .otkritie-result__text-img {
     position: absolute;
     top: 40px;
     right: 60px;
+    margin-bottom: 0;
   }
 }
 .otkritie-result__text {
@@ -974,7 +1012,7 @@
   font-size: 18px;
   font-weight: 700;
   border: none;
-  border-radius: 10px;
+  border-radius: 0;
   background-color: #4fb3d9;
 }
 .otkritie .likely--custom {
