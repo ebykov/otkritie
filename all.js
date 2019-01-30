@@ -951,7 +951,7 @@ var Special = function (_BaseSpecial) {
       var _this2 = this;
 
       EL.logo = (0, _dom.makeElement)('a', CSS.main + '__logo', {
-        href: 'https://www.psbank.ru/Business/Everyday/Cards/Corporate?utm_source=special&utm_medium=publicrelations&utm_campaign=vc29112018&utm_content=test',
+        href: 'https://www.open.ru/',
         target: '_blank',
         innerHTML: _svg2.default.logo
       });
@@ -1653,7 +1653,7 @@ exports.default = {
         correct: 'Правильно.',
         incorrect: 'Неправильно.'
       },
-      text: 'Шина не такая дорогая — <a href="https://www.bbc.com/sport/formula1/22294880" target="_blank">около</a> 25 тысяч рублей, зато на один сезон команде нужно больше семиста штук. ',
+      text: 'Шина не такая дорогая — 25 тысяч рублей, зато на один сезон команде нужно больше семиста штук. ',
       img: 'https://leonardo.osnova.io/e0506495-d8fd-71e4-dc09-a16e8b72adb9/',
       img2x: 'https://leonardo.osnova.io/573c9a2e-144c-8f0b-0825-fff75f1b2694/'
     },
